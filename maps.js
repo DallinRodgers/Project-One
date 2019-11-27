@@ -8,11 +8,6 @@ function initMap() {
     center: { lat: latResult, lng: lngResult },
     zoom: 14
   });
-  //   New Marker
-  //   var marker = new google.maps.Marker({
-  //     position: { lat: 40.7608, lng: -111.891 },
-  //     map: map
-  //   });
 
   //   Add Marker Function
   function addMarker(location) {
@@ -31,8 +26,9 @@ function initMap() {
 document.querySelector("button").addEventListener("click", () => {
   let city = document.querySelector("#city").value;
   let state = document.querySelector("#state").value;
-  console.log(city);
 
+  //   Remove blank spaces from string and replace with "+"
+  //   This is need for geoCode
   city = city.split("");
   for (let i = 0; i < city.length; i++) {
     if (city[i] === " ") {
@@ -40,7 +36,6 @@ document.querySelector("button").addEventListener("click", () => {
     }
   }
   city = city.join("");
-  console.log(city);
 
   geoCode(city, state);
 });
@@ -50,19 +45,14 @@ function geoCode(city, state) {
     `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${state}&key=AIzaSyAQniP-3rD977wqZuDvbfDQjBeUNRlXKDo`
   )
     .then(result => {
-      // body: ReadableStream, this is found in the returned results from the api
-      // This will return a promise and convert it from json to javascript
       return result.json();
     })
     .then(data => {
-      //   console.log(data);
+      // Get longitude and latitude for global variables
       latResult = data.results[0].geometry.location.lat;
       lngResult = data.results[0].geometry.location.lng;
-      console.log(latResult);
-      console.log(lngResult);
+      // Display new location on map
       initMap();
     })
     .catch(error => console.log(error));
 }
-
-// geoCode();
