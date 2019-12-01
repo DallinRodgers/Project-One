@@ -17,11 +17,19 @@ function initMap() {
     });
   }
 
-  //   All multiple marks to map
-  //   addMarker({ lat: 40.7608, lng: -111.891 });
-  //   addMarker({ lat: 40.7608, lng: -111.893 });
-  //   addMarker({ lat: 40.7608, lng: -111.895 });
+  // Add markers
+  for (var i = 0; i < markerArray.length; i++) {
+    addMarker(markerArray[i]);
+  }
 }
+
+// Array of marker locations
+// Locations will come from yelp results
+var markerArray = [
+  { lat: 40.7608, lng: -111.891 },
+  { lat: 40.7608, lng: -111.893 },
+  { lat: 40.7608, lng: -111.895 }
+];
 
 document.querySelector("button").addEventListener("click", () => {
   let city = document.querySelector("#city").value;
@@ -40,6 +48,8 @@ document.querySelector("button").addEventListener("click", () => {
   geoCode(city, state);
 });
 
+// This will get the latitude and longitude of the entered city and state
+// Then call initMap for the new location
 function geoCode(city, state) {
   fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${state}&key=AIzaSyAQniP-3rD977wqZuDvbfDQjBeUNRlXKDo`
