@@ -7,7 +7,7 @@ $("#searchInputs").on("click", function () {
     console.log(topic);
     console.log(location);
     var queryURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" +
-            topic + "&location=" + location + "&limit=5";
+            topic + "&location=" + location + "&limit=10";
 
 //ajax query with API key
 $.ajax({
@@ -27,12 +27,20 @@ $.ajax({
             var newDiv = $("<div class='infoList'>");
             var rating = results[i].rating;
             var p = $("<p>").text("Rating: " + rating);
+            
             var returnList = $("<div>");
             returnList.text(results[i].name);
+            
             var img = $("<img class='restImg'>");
             img.attr("src", results[i].image_url);
+            
             var yelpPage = $("<a>" + results[i].name + "</a>");
             yelpPage.attr("href", results[i].url);
+
+            var latitude = results[i].coordinates.latitude;
+            var longitude = results[i].coordinates.longitude;
+            console.log(latitude);
+            console.log(longitude);
             
             //newDiv.prepend(returnList);
             newDiv.append(p);
