@@ -60,4 +60,42 @@ $("#searchForm").on("click", function(event) {
 
 });
 
+var firebaseConfig = {
+    apiKey: "AIzaSyA-dim15cm5AfNhNwNCyKTSE8FY4C4O6Mc",
+    authDomain: "project-1-9af89.firebaseapp.com",
+    databaseURL: "https://project-1-9af89.firebaseio.com",
+    projectId: "project-1-9af89",
+    storageBucket: "project-1-9af89.appspot.com",
+    messagingSenderId: "438234487611",
+    appId: "1:438234487611:web:9d47fe8e9137861f80351e"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var database = firebase.database();
+
+  var inputTopic = "";
+  var inputLocation = "";
+
+$("#searchInputs").on("click", function (event) {
+    event.preventDefault();
+
+    inputTopic = $("#topic").val().trim();
+    inputLocation = $("#location").val().trim();
+
+    $("#topic").val("");
+    $("#location").val("");
+
+    database.ref().push({
+        inputTopic: inputTopic,
+        inputLocation: inputLocation,
+        dataAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+
+});
+database.ref().on("child_added", function(childSnapshot) {
+    $("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic + 
+    "</td><td>" + childSnapshot.val().inputLocation + 
+    "</td></tr>");
+})
 });
