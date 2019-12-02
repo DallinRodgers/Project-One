@@ -27,8 +27,8 @@ function initMap() {
 // Locations will come from yelp results
 var markerArray = [
   { lat: 40.7608, lng: -111.891 },
-  { lat: 40.7608, lng: -111.893 },
-  { lat: 40.7608, lng: -111.895 }
+  { lat: 40.7614, lng: -111.888 },
+  { lat: 40.76, lng: -111.893 }
 ];
 
 document.querySelector("button").addEventListener("click", () => {
@@ -36,7 +36,7 @@ document.querySelector("button").addEventListener("click", () => {
   let state = document.querySelector("#state").value;
 
   //   Remove blank spaces from string and replace with "+"
-  //   This is need for geoCode
+  //   This is needed for geoCode
   city = city.split("");
   for (let i = 0; i < city.length; i++) {
     if (city[i] === " ") {
