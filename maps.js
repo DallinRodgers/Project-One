@@ -31,6 +31,9 @@ var markerArray = [
   { lat: 40.76, lng: -111.893 }
 ];
 
+// How to add new locations to markerArray
+// markerArray.push({ lat: latResult, lng: lngResult });
+
 document.querySelector("button").addEventListener("click", () => {
   let city = document.querySelector("#city").value;
   let state = document.querySelector("#state").value;
