@@ -5,7 +5,6 @@ header {
   border: 1px solid white;
 }
 
-
 aside {
   background-color: ;
   width: 300px;
@@ -14,6 +13,10 @@ aside {
   border: 1px solid white;
 }
 
+#map {
+  min-width: 500px;
+  min-height: 500px;
+}
 
 body {
   padding: 0;
@@ -25,8 +28,6 @@ body {
   background: #efeee7;
 }
 
-
-
 main {
   background-color: ;
   width: 700px;
@@ -35,11 +36,14 @@ main {
   border: 1px solid white;
 }
 
+footer {
+  background-color: ;
+  width: 1000px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid white;
+}
 
-  footer {
-    background-color: ;
-    width: 1000px;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid white;
-  }
+.card-body {
+  display: flex;
+}
