@@ -35,7 +35,7 @@ var markerArray = [
 // markerArray.push({ lat: latResult, lng: lngResult });
 
 document.querySelector("button").addEventListener("click", () => {
-  let city = document.querySelector("#city").value;
+  let city = document.querySelector("#location").value;
   let state = document.querySelector("#state").value;
 
   //   Remove blank spaces from string and replace with "+"

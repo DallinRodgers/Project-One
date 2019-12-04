@@ -5,6 +5,9 @@ header {
   border: 1px solid white;
 }
 
+.container {
+  max-width: 80%;
+}
 
 aside {
   background-color: ;
@@ -14,6 +17,10 @@ aside {
   border: 1px solid white;
 }
 
+#map {
+  min-width: 600px;
+  min-height: 600px;
+}
 
 body {
   padding: 0;
@@ -25,8 +32,6 @@ body {
   background: #efeee7;
 }
 
-
-
 main {
   background-color: ;
   width: 700px;
@@ -35,25 +40,43 @@ main {
   border: 1px solid white;
 }
 
+footer {
+  background-color: ;
+  width: 1000px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid white;
+}
 
-  footer {
-    background-color: ;
-    width: 1000px;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid white;
-  }
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+footer {
+  background-color: ;
+  width: 1000px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid white;
+}
 
 .infoList {
-    border-bottom: 1px solid black;
-    margin-bottom: 5px;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
 }
 
 p {
-    margin: 0px 0px 5px 0px;
+  margin: 0px 0px 5px 0px;
 }
 
 .restImg {
-    width: 400px;
-    height: 400px;
+  width: 350px;
+  height: auto;
+  max-height: 350px;
+}
+
+#results_here {
+  max-height: 600px;
+  overflow-y: scroll;
+  margin-right: 20px;
 }
