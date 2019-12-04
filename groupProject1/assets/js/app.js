@@ -82,9 +82,11 @@ $("#searchInputs").on("click", function (event) {
 
     inputTopic = $("#topic").val().trim();
     inputLocation = $("#location").val().trim();
+    inputState = $("#state").val().trim();
 
     $("#topic").val("");
     $("#location").val("");
+    $("#state").val("");
 
     database.ref().push({
         inputTopic: inputTopic,
