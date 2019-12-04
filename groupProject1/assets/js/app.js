@@ -76,6 +76,7 @@ var firebaseConfig = {
 
   var inputTopic = "";
   var inputLocation = "";
+  var inputState = "";
 
 $("#searchInputs").on("click", function (event) {
     event.preventDefault();
@@ -91,13 +92,14 @@ $("#searchInputs").on("click", function (event) {
     database.ref().push({
         inputTopic: inputTopic,
         inputLocation: inputLocation,
+        inputState: inputState,
         dataAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
 });
-database.ref().on("child_added", function(childSnapshot) {
-    $("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic + 
-    "</td><td>" + childSnapshot.val().inputLocation + 
-    "</td></tr>");
-})
+//database.ref().on("child_added", function(childSnapshot) {
+    //$("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic + 
+    //"</td><td>" + childSnapshot.val().inputLocation + 
+    //"</td></tr>");
+//})
 });
