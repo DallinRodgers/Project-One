@@ -47,3 +47,24 @@ footer {
 .card-body {
   display: flex;
 }
+footer {
+  background-color: ;
+  width: 1000px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.infoList {
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+p {
+  margin: 0px 0px 5px 0px;
+}
+
+.restImg {
+  width: 400px;
+  height: 400px;
+}
