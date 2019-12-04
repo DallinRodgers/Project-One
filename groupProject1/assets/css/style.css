@@ -5,6 +5,10 @@ header {
   border: 1px solid white;
 }
 
+.container {
+  max-width: 80%;
+}
+
 aside {
   background-color: ;
   width: 300px;
@@ -14,8 +18,8 @@ aside {
 }
 
 #map {
-  min-width: 500px;
-  min-height: 500px;
+  min-width: 600px;
+  min-height: 600px;
 }
 
 body {
@@ -44,8 +48,9 @@ footer {
   border: 1px solid white;
 }
 
-.card-body {
+.flex {
   display: flex;
+  flex-direction: row;
 }
 footer {
   background-color: ;
@@ -65,6 +70,13 @@ p {
 }
 
 .restImg {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: auto;
+  max-height: 350px;
+}
+
+#results_here {
+  max-height: 600px;
+  overflow-y: scroll;
+  margin-right: 20px;
 }
