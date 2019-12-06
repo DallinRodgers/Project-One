@@ -34,8 +34,46 @@ $(document).ready(function() {
         markerArray = [];
         for (var i = 0; i < results.length; i++) {
           var newDiv = $("<div class='infoList'>");
+
+          //yelp rating converted to star rating.
           var rating = results[i].rating;
-          var p = $("<p>").text("Rating: " + rating);
+          if (rating === 0) {
+            var imglink = "./assets/images/regular_0.png"
+          }
+          else if (rating === 1) {
+            var imglink = "./assets/images/regular_1.png"
+          }
+          else if (rating === 1.5) {
+            var imglink = "./assets/images/regular_1_half.png"
+          }
+          else if (rating === 2) {
+            var imglink = "./assets/images/regular_2.png"
+          }
+          else if (rating === 2.5) {
+            var imglink = "./assets/images/regular_2_half.png"
+          }
+          else if (rating === 3) {
+            var imglink = "./assets/images/regular_3.png"
+          }
+          else if (rating === 3.5) {
+            var imglink = "./assets/images/regular_3_half.png"
+          }
+          else if (rating === 4) {
+            var imglink = "./assets/images/regular_4.png"
+          }
+          else if (rating === 4.5) {
+            var imglink = "./assets/images/regular_4_half.png"
+          }
+          else if (rating === 5) {
+            var imglink = "./assets/images/regular_5.png"
+          }
+
+          var imgtag = $("<img>");
+            imgtag.attr("src", imglink);
+            imgtag.attr("title", results[i].rating);
+
+          var p = $("<p class='rating'>").text("Rating: ");
+          p.append(imgtag);
 
           var returnList = $("<div>");
           returnList.text(results[i].name);
@@ -51,7 +89,12 @@ $(document).ready(function() {
           console.log(latitude);
           console.log(longitude);
 
-          markerArray.push({ lat: latitude, lng: longitude });
+          var yelpLocation = {
+            location: { lat: latitude, lng: longitude },
+            name: results[i].name
+          }
+
+          markerArray.push(yelpLocation);
 
           // markerArray.push({ lat: latResult, lng: lngResult });
 
@@ -113,11 +156,12 @@ $(document).ready(function() {
       dataAdded: firebase.database.ServerValue.TIMESTAMP
     });
   });
-  //database.ref().on("child_added", function(childSnapshot) {
-  //$("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic +
-  //"</td><td>" + childSnapshot.val().inputLocation +
-  //"</td></tr>");
-  //})
+  database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function(childSnapshot) {
+  $("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic +
+  "</td><td>" + childSnapshot.val().inputLocation +
+  "</td><td>" + childSnapshot.val().inputState +
+  "</td></tr>");
+  })
 });
 
 // This is for the Google Maps API
@@ -137,10 +181,12 @@ function initMap() {
   });
 
   //   Add Marker Function
-  function addMarker(location) {
+  function addMarker(pinPosition) {
+    console.log(pinPosition);
     var marker = new google.maps.Marker({
-      position: location,
-      map: map
+      position: pinPosition.location,
+      map: map,
+      title: pinPosition.name
     });
   }
 
