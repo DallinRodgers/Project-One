@@ -34,8 +34,46 @@ $(document).ready(function() {
         markerArray = [];
         for (var i = 0; i < results.length; i++) {
           var newDiv = $("<div class='infoList'>");
+
+          //yelp rating converted to star rating.
           var rating = results[i].rating;
-          var p = $("<p>").text("Rating: " + rating);
+          if (rating === 0) {
+            var imglink = "./assets/images/regular_0.png"
+          }
+          else if (rating === 1) {
+            var imglink = "./assets/images/regular_1.png"
+          }
+          else if (rating === 1.5) {
+            var imglink = "./assets/images/regular_1_half.png"
+          }
+          else if (rating === 2) {
+            var imglink = "./assets/images/regular_2.png"
+          }
+          else if (rating === 2.5) {
+            var imglink = "./assets/images/regular_2_half.png"
+          }
+          else if (rating === 3) {
+            var imglink = "./assets/images/regular_3.png"
+          }
+          else if (rating === 3.5) {
+            var imglink = "./assets/images/regular_3_half.png"
+          }
+          else if (rating === 4) {
+            var imglink = "./assets/images/regular_4.png"
+          }
+          else if (rating === 4.5) {
+            var imglink = "./assets/images/regular_4_half.png"
+          }
+          else if (rating === 5) {
+            var imglink = "./assets/images/regular_5.png"
+          }
+
+          var imgtag = $("<img>");
+            imgtag.attr("src", imglink);
+            imgtag.attr("title", results[i].rating);
+
+          var p = $("<p class='rating'>").text("Rating: ");
+          p.append(imgtag);
 
           var returnList = $("<div>");
           returnList.text(results[i].name);
