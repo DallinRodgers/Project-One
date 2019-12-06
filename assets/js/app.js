@@ -156,11 +156,12 @@ $(document).ready(function() {
       dataAdded: firebase.database.ServerValue.TIMESTAMP
     });
   });
-  //database.ref().on("child_added", function(childSnapshot) {
-  //$("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic +
-  //"</td><td>" + childSnapshot.val().inputLocation +
-  //"</td></tr>");
-  //})
+  database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function(childSnapshot) {
+  $("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic +
+  "</td><td>" + childSnapshot.val().inputLocation +
+  "</td><td>" + childSnapshot.val().inputState +
+  "</td></tr>");
+  })
 });
 
 // This is for the Google Maps API
