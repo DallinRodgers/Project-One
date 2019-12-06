@@ -89,7 +89,12 @@ $(document).ready(function() {
           console.log(latitude);
           console.log(longitude);
 
-          markerArray.push({ lat: latitude, lng: longitude });
+          var yelpLocation = {
+            location: { lat: latitude, lng: longitude },
+            name: results[i].name
+          }
+
+          markerArray.push(yelpLocation);
 
           // markerArray.push({ lat: latResult, lng: lngResult });
 
@@ -175,10 +180,12 @@ function initMap() {
   });
 
   //   Add Marker Function
-  function addMarker(location) {
+  function addMarker(pinPosition) {
+    console.log(pinPosition);
     var marker = new google.maps.Marker({
-      position: location,
-      map: map
+      position: pinPosition.location,
+      map: map,
+      title: pinPosition.name
     });
   }
 
