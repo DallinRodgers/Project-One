@@ -8,105 +8,107 @@ $(document).ready(function() {
     var location = $("#location")
       .val()
       .trim();
-    console.log(topic);
-    console.log(location);
-    var queryURL =
-      "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" +
-      topic +
-      "&location=" +
-      location +
-      "&limit=10";
+    var state = $("#state")
+      .val()
+      .trim();
+    checkInputForNumber(topic);
+    checkInputForNumber(location);
+    checkInputForNumber(state);
+    if (topic !== "" && location !== "" && state !== "" && noNumbers) {
+      geoCodeInput();
+      updateFirebase(event);
+      console.log(topic);
+      console.log(location);
+      console.log(state);
+      var queryURL =
+        "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" +
+        topic +
+        "&location=" +
+        location +
+        "&limit=10";
 
-    //ajax query with API key
-    $.ajax({
-      url: queryURL,
-      headers: {
-        Authorization:
-          "Bearer oAi8xqrA80oy6_LsWv-DiIuccat-2euKtqtDJ_gFj86cD0FsczFnpJlTzGAUW2YONB956KEjcVAyh3FmOHTOC3qvkb9YFKnxbzkLQYQKVn2rAdY4e7gMrZ5BUPrdXXYx"
-      },
-      method: "GET",
-      dataType: "JSON"
-    })
+      //ajax query with API key
+      $.ajax({
+        url: queryURL,
+        headers: {
+          Authorization:
+            "Bearer oAi8xqrA80oy6_LsWv-DiIuccat-2euKtqtDJ_gFj86cD0FsczFnpJlTzGAUW2YONB956KEjcVAyh3FmOHTOC3qvkb9YFKnxbzkLQYQKVn2rAdY4e7gMrZ5BUPrdXXYx"
+        },
+        method: "GET",
+        dataType: "JSON"
+      })
 
-      //Take response and output to page
-      .then(function(response) {
-        var results = response.businesses;
-        markerArray = [];
-        for (var i = 0; i < results.length; i++) {
-          var newDiv = $("<div class='infoList'>");
+        //Take response and output to page
+        .then(function(response) {
+          var results = response.businesses;
+          markerArray = [];
+          for (var i = 0; i < results.length; i++) {
+            var newDiv = $("<div class='infoList'>");
 
-          //yelp rating converted to star rating.
-          var rating = results[i].rating;
-          if (rating === 0) {
-            var imglink = "./assets/images/regular_0.png"
-          }
-          else if (rating === 1) {
-            var imglink = "./assets/images/regular_1.png"
-          }
-          else if (rating === 1.5) {
-            var imglink = "./assets/images/regular_1_half.png"
-          }
-          else if (rating === 2) {
-            var imglink = "./assets/images/regular_2.png"
-          }
-          else if (rating === 2.5) {
-            var imglink = "./assets/images/regular_2_half.png"
-          }
-          else if (rating === 3) {
-            var imglink = "./assets/images/regular_3.png"
-          }
-          else if (rating === 3.5) {
-            var imglink = "./assets/images/regular_3_half.png"
-          }
-          else if (rating === 4) {
-            var imglink = "./assets/images/regular_4.png"
-          }
-          else if (rating === 4.5) {
-            var imglink = "./assets/images/regular_4_half.png"
-          }
-          else if (rating === 5) {
-            var imglink = "./assets/images/regular_5.png"
-          }
+            //yelp rating converted to star rating.
+            var rating = results[i].rating;
+            if (rating === 0) {
+              var imglink = "./assets/images/regular_0.png";
+            } else if (rating === 1) {
+              var imglink = "./assets/images/regular_1.png";
+            } else if (rating === 1.5) {
+              var imglink = "./assets/images/regular_1_half.png";
+            } else if (rating === 2) {
+              var imglink = "./assets/images/regular_2.png";
+            } else if (rating === 2.5) {
+              var imglink = "./assets/images/regular_2_half.png";
+            } else if (rating === 3) {
+              var imglink = "./assets/images/regular_3.png";
+            } else if (rating === 3.5) {
+              var imglink = "./assets/images/regular_3_half.png";
+            } else if (rating === 4) {
+              var imglink = "./assets/images/regular_4.png";
+            } else if (rating === 4.5) {
+              var imglink = "./assets/images/regular_4_half.png";
+            } else if (rating === 5) {
+              var imglink = "./assets/images/regular_5.png";
+            }
 
-          var imgtag = $("<img>");
+            var imgtag = $("<img>");
             imgtag.attr("src", imglink);
             imgtag.attr("title", results[i].rating);
 
-          var p = $("<p class='rating'>").text("Rating: ");
-          p.append(imgtag);
+            var p = $("<p class='rating'>").text("Rating: ");
+            p.append(imgtag);
 
-          var returnList = $("<div>");
-          returnList.text(results[i].name);
+            var returnList = $("<div>");
+            returnList.text(results[i].name);
 
-          var img = $("<img class='restImg'>");
-          img.attr("src", results[i].image_url);
+            var img = $("<img class='restImg'>");
+            img.attr("src", results[i].image_url);
 
-          var yelpPage = $("<a>" + results[i].name + "</a>");
-          yelpPage.attr("href", results[i].url);
+            var yelpPage = $("<a>" + results[i].name + "</a>");
+            yelpPage.attr("href", results[i].url);
 
-          var latitude = results[i].coordinates.latitude;
-          var longitude = results[i].coordinates.longitude;
-          console.log(latitude);
-          console.log(longitude);
+            var latitude = results[i].coordinates.latitude;
+            var longitude = results[i].coordinates.longitude;
+            console.log(latitude);
+            console.log(longitude);
 
-          var yelpLocation = {
-            location: { lat: latitude, lng: longitude },
-            name: results[i].name
+            var yelpLocation = {
+              location: { lat: latitude, lng: longitude },
+              name: results[i].name
+            };
+
+            markerArray.push(yelpLocation);
+
+            // markerArray.push({ lat: latResult, lng: lngResult });
+
+            //newDiv.prepend(returnList);
+            newDiv.append(p);
+            newDiv.append(img);
+            newDiv.prepend(yelpPage);
+
+            $("#results_here").prepend(newDiv);
           }
-
-          markerArray.push(yelpLocation);
-
-          // markerArray.push({ lat: latResult, lng: lngResult });
-
-          //newDiv.prepend(returnList);
-          newDiv.append(p);
-          newDiv.append(img);
-          newDiv.prepend(yelpPage);
-
-          $("#results_here").prepend(newDiv);
-        }
-        initMap();
-      });
+          initMap();
+        });
+    }
 
     //Prevent form from reloading page
     $("#searchForm").on("click", function(event) {
@@ -132,7 +134,7 @@ $(document).ready(function() {
   var inputLocation = "";
   var inputState = "";
 
-  $("#searchInputs").on("click", function(event) {
+  function updateFirebase(event) {
     event.preventDefault();
 
     inputTopic = $("#topic")
@@ -155,13 +157,22 @@ $(document).ready(function() {
       inputState: inputState,
       dataAdded: firebase.database.ServerValue.TIMESTAMP
     });
-  });
-  database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function(childSnapshot) {
-  $("#history_here").append("<tr><td>" + childSnapshot.val().inputTopic +
-  "</td><td>" + childSnapshot.val().inputLocation +
-  "</td><td>" + childSnapshot.val().inputState +
-  "</td></tr>");
-  })
+  }
+  database
+    .ref()
+    .orderByChild("dateAdded")
+    .limitToLast(5)
+    .on("child_added", function(childSnapshot) {
+      $("#history_here").append(
+        "<tr><td>" +
+          childSnapshot.val().inputTopic +
+          "</td><td>" +
+          childSnapshot.val().inputLocation +
+          "</td><td>" +
+          childSnapshot.val().inputState +
+          "</td></tr>"
+      );
+    });
 });
 
 // This is for the Google Maps API
@@ -196,10 +207,7 @@ function initMap() {
   }
 }
 
-// How to add new locations to markerArray
-// markerArray.push({ lat: latResult, lng: lngResult });
-
-document.querySelector("button").addEventListener("click", () => {
+function geoCodeInput() {
   let city = document.querySelector("#location").value;
   let state = document.querySelector("#state").value;
 
@@ -214,7 +222,7 @@ document.querySelector("button").addEventListener("click", () => {
   city = city.join("");
 
   geoCode(city, state);
-});
+}
 
 // This will get the latitude and longitude of the entered city and state
 // Then call initMap for the new location
@@ -233,4 +241,27 @@ function geoCode(city, state) {
       //   initMap();
     })
     .catch(error => console.log(error));
+}
+
+let noNumbers = true;
+
+function checkInputForNumber(input) {
+  let str = input;
+  str = str.split("");
+  for (let i = 0; i < str.length; i++) {
+    if (
+      str[i] === "1" ||
+      str[i] === "2" ||
+      str[i] === "3" ||
+      str[i] === "4" ||
+      str[i] === "5" ||
+      str[i] === "6" ||
+      str[i] === "7" ||
+      str[i] === "8" ||
+      str[i] === "9" ||
+      str[i] === "0"
+    ) {
+      noNumbers = false;
+    }
+  }
 }
