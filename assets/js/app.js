@@ -11,7 +11,6 @@ $(document).ready(function() {
     var state = $("#state")
       .val()
       .trim();
-    checkInputForNumber(topic);
     checkInputForNumber(location);
     checkInputForNumber(state);
     if (topic !== "" && location !== "" && state !== "" && noNumbers) {
@@ -108,6 +107,8 @@ $(document).ready(function() {
           }
           initMap();
         });
+    } else {
+      clearInput();
     }
 
     //Prevent form from reloading page
@@ -147,9 +148,7 @@ $(document).ready(function() {
       .val()
       .trim();
 
-    $("#topic").val("");
-    $("#location").val("");
-    $("#state").val("");
+    clearInput();
 
     database.ref().push({
       inputTopic: inputTopic,
@@ -157,6 +156,11 @@ $(document).ready(function() {
       inputState: inputState,
       dataAdded: firebase.database.ServerValue.TIMESTAMP
     });
+  }
+  function clearInput() {
+    $("#topic").val("");
+    $("#location").val("");
+    $("#state").val("");
   }
   database
     .ref()
