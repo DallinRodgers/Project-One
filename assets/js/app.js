@@ -265,6 +265,3 @@ function checkInputForNumber(input) {
     }
   }
 }
-
-// checkInputForNumber("string");
-// checkInputForNumber("st3ak");
