@@ -11,7 +11,10 @@ $(document).ready(function() {
     var state = $("#state")
       .val()
       .trim();
-    if (topic !== "" && location !== "" && state !== "") {
+    checkInputForNumber(topic);
+    checkInputForNumber(location);
+    checkInputForNumber(state);
+    if (topic !== "" && location !== "" && state !== "" && noNumbers) {
       geoCodeInput();
       updateFirebase(event);
       console.log(topic);
@@ -239,3 +242,29 @@ function geoCode(city, state) {
     })
     .catch(error => console.log(error));
 }
+
+let noNumbers = true;
+
+function checkInputForNumber(input) {
+  let str = input;
+  str = str.split("");
+  for (let i = 0; i < str.length; i++) {
+    if (
+      str[i] === "1" ||
+      str[i] === "2" ||
+      str[i] === "3" ||
+      str[i] === "4" ||
+      str[i] === "5" ||
+      str[i] === "6" ||
+      str[i] === "7" ||
+      str[i] === "8" ||
+      str[i] === "9" ||
+      str[i] === "0"
+    ) {
+      noNumbers = false;
+    }
+  }
+}
+
+// checkInputForNumber("string");
+// checkInputForNumber("st3ak");
