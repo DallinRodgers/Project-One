@@ -5,22 +5,12 @@ header {
   border: 1px solid white;
 }
 
-
-.container {
-  max-width: 80%;
-}
-
 aside {
   background-color: ;
   width: 300px;
   height: 400px;
   padding: 10px;
   border: 1px solid white;
-}
-
-#map {
-  min-width: 600px;
-  min-height: 600px;
 }
 
 body {
@@ -50,21 +40,12 @@ footer {
   border: 1px solid white;
 }
 
-.flex {
-  display: flex;
-  flex-direction: row;
-}
 footer {
   background-color: ;
   width: 1000px;
   height: 100px;
   padding: 10px;
   border: 1px solid white;
-}
-
-.infoList {
-  border-bottom: 1px solid black;
-  margin-bottom: 5px;
 }
 
 p {
@@ -75,6 +56,25 @@ p {
   width: 350px;
   height: auto;
   max-height: 350px;
+}
+
+.histBody {
+  max-height: 415px;
+  overflow-y: scroll;
+}
+
+.infoList {
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  max-width: 80%;
 }
 
 #results_here {
@@ -90,4 +90,9 @@ p {
 #history_here {
   color: white;
   font-size: 13px;
+}
+
+#map {
+  min-width: 600px;
+  min-height: 600px;
 }
